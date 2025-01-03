@@ -1,0 +1,3 @@
+A series of test and notes from my studies of nix DSL and using nix-flakes 
+to recreate reproducible build environments to compile applications 
+regardless of the machine the build is being run on

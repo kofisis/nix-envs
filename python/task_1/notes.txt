@@ -1,0 +1,7 @@
+""" 
+PAGE OF TASK DESCRIPTIONS. I'LL BE PUTTING LANGUAGE SPECIFIC TASKS HERE AND COMPILE THEM WITH NIX 
+
+""
+
+1. Build an python application that outputs the architecture of the build platform, the IP of the host, and the country based on the IP.
+   Next add a nix flakes to make sure application compiles regardless of where its being run 
