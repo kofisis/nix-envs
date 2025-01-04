@@ -16,6 +16,7 @@ class RegionLocatior():
 
 if __name__ == "__main__":
     try:
-        RegionLocatior.find_me()
+        region_locator = RegionLocatior()
+        region_locator.find_me()
     except Exception as local_error:
         print(f"An Error Occured : {local_error}")
