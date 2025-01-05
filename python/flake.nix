@@ -1,52 +1,38 @@
 {
   description = "This creates a python dev env with the specified package and builds the code in it";
-
   # Flake Inputs
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
-    flake-utils.url = "github:numtide/flake-utils"
+    flake-utils.url = "github:numtide/flake-utils";
   };
-
   outputs = { self, nixpkgs, flake-utils }:
-  let
-    # Systems supported -> can be tailored to use users os and archtype
-    mySystems = [
-      "x86_64-linux" # 64-bit Intel/AMD Linux
-      "aarch64-linux" # 64-bit ARM Linux
-      "x86_64-darwin" # 64-bit Intel macOS
-      "aarch64-darwin" # 64-bit ARM macOS
-    ];
+  # a better way to auto populate the eachSystems is to use
+  # flake-utils.lib.eachDefaultSystem -> this auto fills the systems with build systems arch and os
+  # https://github.com/numtide/flake-utils/tree/main
+    flake-utils.lib.eachSystem [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ] (system: let
+      pkgs = import nixpkgs { inherit system; };
 
-    # Define package to build (assuming a basic Python package)
-    myPackage = pkgs.buildPythonPackage {
-      pname = "my-python-package";
-      src = ./main; # Path to your Python source code directory
-      buildInputs = [ pkgs.python314 ]; # Assuming Python 3.14
-      # Add any other necessary build inputs here
-    };
+      myPackage = pkgs.python3.pkgs.buildPythonPackage {
+        pname = "myPackage";
+        version = "0.1.0";
+        src = ./main;
+        buildInputs = [ pkgs.python3 ];
+      };
+    in {
+      packages.default = myPackage;
 
-    # Helper to get system-specific attribute
-    forAllSystems = f:
-      nixpkgs.lib.genAttrs mySystems
-      (system: f {pkgs = import nixpkgs { inherit system };
-      in {
-        # My Dev Env
-        envShell = forAllSystems ({pkgs}): {
-          default = let
-            python = pkgs.python314;
-          in pkgs.mkshell {
-            packages = [
-              python.withPackages (ps:
-                with ps; [
-                  #sys utils
-                  ansible-core
-                  git
-                  ssh
-                  black
-                ])
-            ]
-          }
-        }
-      }});
-  in forAllSystems (system: system.envShell);
+      devShells.default = pkgs.mkShell {
+        packages = [
+          (pkgs.python3.withPackages (ps: with ps; [
+            ansible-core
+            black
+          ]))
+        ];
+      };
+    });
 }
