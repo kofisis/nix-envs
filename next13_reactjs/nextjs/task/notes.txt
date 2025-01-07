@@ -1,0 +1,9 @@
+Task 1 ->
+ 1. Write a nix flake to create a devShell with node and install npm and npx
+ 2. This will be used as our dev environment for the nextjs course
+ 3. Update it with needed packages and maintain it to use for all next tasks
+
+Task 2 ->
+ 1. Create a simple nextJS app
+ 2. Add a /blog route and add a simple <h1> Welcome to my blog </h1>
+ 3. Update the nix-flake to build the app and serve it
