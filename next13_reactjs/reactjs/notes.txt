@@ -1,0 +1,3 @@
+Task 1 ->
+ 1. Create a nix flake to auto create a devShell with node and output
+    a sample command to run to create react project if packag.jsn not found 
