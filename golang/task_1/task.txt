@@ -1,0 +1,8 @@
+""" 
+PAGE OF TASK DESCRIPTIONS. I'LL BE PUTTING LANGUAGE SPECIFIC TASKS HERE AND COMPILE THEM WITH NIX 
+
+""
+1. Write a go application that prompts users to enter a question and response backs using Eliza [An AI Tool developed to trick humans into thinking they're talking to humans] 
+  You'd have to look up a go package of the Eliza model and inject it in as outside package
+
+   Next add a nix flakes to make sure application compiles regardless of where its being run 
