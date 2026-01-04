@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/kennysong/goeliza"
 )
@@ -11,8 +12,6 @@ import (
 func main() {
 
 	fmt.Println("Eliza: " + goeliza.ElizaHi())
-
-	fmt.Println("UserInput: " + getUserInput())
 
 	for {
 		statement := getUserInput()
@@ -31,8 +30,13 @@ func getUserInput() string {
 		// get reader input
 		reader := bufio.NewReader(os.Stdin)
 
+		// strip enter char from userInput for windows
+
 		userInput, _ := reader.ReadString('\n')
 
-		fmt.Println(userInput)
+		userInput = strings.Replace(userInput, "\r\n", "", -1) // replace it everywhere you find this char
+		userInput = strings.Replace(userInput, "\n", "", -1)   // replace return key with nothing for linux based os & macos
+
+		return userInput
 	}
 }
