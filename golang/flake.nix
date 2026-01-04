@@ -1,3 +1,12 @@
+
+/* Personal Nix Flakes with a managed package.nix file to build and run my small o practice applications
+nix run .#task_no -> to run app from task_no/code
+nix flake update -> to update flake should anything be changed in testing
+
+
+ */
+
+
 {
   description = "A monorepo setup for all my go tutorial projects";
 

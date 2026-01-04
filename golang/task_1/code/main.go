@@ -27,6 +27,8 @@ func main() {
 func getUserInput() string {
 
 	for {
+
+		fmt.Print("User: ")
 		// get reader input
 		reader := bufio.NewReader(os.Stdin)
 
@@ -34,7 +36,7 @@ func getUserInput() string {
 
 		userInput, _ := reader.ReadString('\n')
 
-		userInput = strings.Replace(userInput, "\r\n", "", -1) // replace it everywhere you find this char
+		userInput = strings.Replace(userInput, "\r\n", "", -1) // replace it everywhere you find /r [return tab], /n new line break
 		userInput = strings.Replace(userInput, "\n", "", -1)   // replace return key with nothing for linux based os & macos
 
 		return userInput
