@@ -1,0 +1,7 @@
+""" 
+PAGE OF TASK DESCRIPTIONS. I'LL BE PUTTING LANGUAGE SPECIFIC TASKS HERE AND COMPILE THEM WITH NIX 
+
+""
+1. Add description here
+
+   Next add a nix flakes to make sure application compiles regardless of where its being run 
