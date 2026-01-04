@@ -20,7 +20,7 @@
       in
       {
         packages = {
-          task1 = makeTask "task_1" null;
+          task1 = makeTask "task_1" "sha256-AQSGryR9YkZH8FlB/DS1cw8akCW73674JnrLHB1KBB4=";
           # task2 = makeTask "task_2" null;
 
           default = self.packages.${system}.task1;
