@@ -1,0 +1,39 @@
+{
+  description = "A monorepo setup for all my go tutorial projects";
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
+
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+
+        makeTask = dirName: hash: pkgs.callPackage ./package.nix {
+          pname = dirName;
+          # If this flake is meant to manage many tasks, it should be one level up.
+          src = ./${dirName}/code;
+          vendorHash = hash;
+        };
+      in
+      {
+        packages = {
+          task1 = makeTask "task_1" null;
+          # task2 = makeTask "task_2" null;
+
+          default = self.packages.${system}.task1;
+        };
+
+        devShells.default = pkgs.mkShell {
+          packages = with pkgs; [
+            go
+            gopls
+            golangci-lint
+          ];
+
+          shellHook = ''echo "Ready to work on tasks"'';
+        };
+      });
+}
