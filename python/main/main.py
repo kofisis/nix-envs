@@ -12,8 +12,6 @@ class RegionLocatior():
         print(f"Hi {my_system}, welcome to my {my_node}. My version is {rel_ver} & my architecture is {my_aarchh}")
 
 
-
-
 if __name__ == "__main__":
     try:
         region_locator = RegionLocatior()
