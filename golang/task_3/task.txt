@@ -1,0 +1,10 @@
+""" 
+PAGE OF TASK DESCRIPTIONS. I'LL BE PUTTING LANGUAGE SPECIFIC TASKS HERE AND COMPILE THEM WITH NIX 
+""
+1. Write a simple go program, that listens to keystrokes and exits from the ESCP button is pressed.
+   You can formulate it an a console menu selection users can use to select a particular kind of 
+   order from a menu list and then when they hit ESC the prompt exits
+
+   Use the https://github.com/eiannone/keyboard external package to capture the key strokes
+
+   Next add a nix flakes to make sure application compiles regardless of where its being run 

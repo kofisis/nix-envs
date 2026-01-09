@@ -30,8 +30,9 @@ nix flake update -> to update flake should anything be changed in testing
       {
         packages = {
           task1 = makeTask "task_1" "sha256-AQSGryR9YkZH8FlB/DS1cw8akCW73674JnrLHB1KBB4=";
-          # task2 = makeTask "task_2" null;
-
+          # task2 = makeTask "task_2" null; run nix run .#task2 to generate vendorHash and paste it here
+          # task3 = makeTask "task_3" null; run nix run .#task3 to generate vendorHash and paste it here
+          
           default = self.packages.${system}.task1;
         };
 
