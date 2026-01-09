@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"sort"
 
 	"github.com/eiannone/keyboard"
@@ -48,6 +49,8 @@ func main() {
 	})
 
 	for _, k := range key {
+		// char sub chars %s returns strings, %d for ints %v prints out the output in its original/whatever
+		//format
 		fmt.Printf("%s %s\n", string(k), menu[k])
 	}
 
@@ -56,13 +59,27 @@ func main() {
 	for {
 		char, key, err := keyboard.GetKey()
 		if err != nil {
-			panic(err)
+			fmt.Fprint(os.Stderr, "Error : %v\n", err)
+			break
 		}
 		fmt.Println("You've entered key", key, "and it's character is ", char)
 
 		if key == keyboard.KeyEsc {
+			fmt.Println("---- Thanks for passing Through : Goodbye -----")
 			break
 		}
+
+		// get the menu using the character entered
+		// it shows the menu[2] so item on menu & true
+		// it returns the item in the list and true if the character
+		// entered exists in the map
+		// it returns %s % false if the char doesn't exists in the map
+		order, exists := menu[char]
+
+		fmt.Println("%s %s", order, exists)
+
+		fmt.Println("----------")
+		fmt.Println("%s ")
 
 	}
 
