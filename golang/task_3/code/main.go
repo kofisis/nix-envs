@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"sort"
+	"strconv"
 
 	"github.com/eiannone/keyboard"
 )
@@ -18,9 +19,23 @@ func main() {
 		_ = keyboard.Close()
 	}()
 
+	// Need to restructure this code
+
+	// 1. Welcome Users with a Nice Prompt to your Restaurant
+	// 2. As them to provide their names, email and locations (store in a local cache database)
+	// 3. Ask them what they'd like help with today (Give them options) - Maybe 3
+	// 4. Expand the catalogue to show whats on the Menu after selection
+	// 5. Once they order, process the order and send them an email
+	// 6. Thank them for their order
+	// 7. Make sure you handle cases where users choose wrong[ non existent ] menu on item etc
+
 	fmt.Println("Welcome to Nana's Restaurant")
 	fmt.Println("Please Choose Your Order from the menu")
 	fmt.Println("Press ESC to exit")
+
+	characterPressed, keyPressed := GetUserPrompt()
+
+	fmt.Printf("You've pressed : %s %s", characterPressed, keyPressed)
 
 	// using rune here instead of int as rune is already a char
 	// and doesn't need to be converted to string NOT rune is
@@ -62,7 +77,7 @@ func main() {
 			fmt.Fprint(os.Stderr, "Error : %v\n", err)
 			break
 		}
-		fmt.Println("You've entered key", key, "and it's character is ", char)
+		fmt.Printf("You pressed: rune %q, key %X\r\n", char, key)
 
 		if key == keyboard.KeyEsc {
 			fmt.Println("---- Thanks for passing Through : Goodbye -----")
@@ -76,10 +91,45 @@ func main() {
 		// it returns %s % false if the char doesn't exists in the map
 		order, exists := menu[char]
 
-		fmt.Println("%s %s", order, exists)
+		if !exists {
+			fmt.Println("What you selected isn't in the menu")
+			break
+		} else {
+			return
+		}
+
+		fmt.Printf("%s %d", order, exists)
 
 		fmt.Println("----------")
-		fmt.Println("%s ")
+
+	}
+
+}
+
+func GetUserPrompt() (rune, keyboard.Key) {
+
+	for {
+		char, key, error := keyboard.GetKey()
+		if error != nil {
+			fmt.Fprintf(os.Stderr, "Error : %v\n", error)
+			return 0, 0
+		}
+
+		fmt.Printf("You've pressed : %s %s", char, key)
+		return char, key
+	}
+
+}
+
+func CheckInventory(r rune) (v int, s bool) {
+
+	if r > '0' && r <= '6' {
+		val, _ := strconv.Atoi(string(r))
+
+		return val, true
+	} else {
+
+		GetUserPrompt()
 
 	}
 
